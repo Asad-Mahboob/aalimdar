@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative bg-green-900 text-white py-12 px-6"> <!-- Reduced top padding -->
+  <div class="container mx-auto text-center">
+    <div class="flex justify-center items-center pb-2 mb-2"> <!-- Reduced padding and margin -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="125" height="125">
+        <!-- Background Circle without Border -->
+        <circle cx="50" cy="50" r="48" fill="url(#green-gradient)"/>
+
+        <!-- Arabic Text: 'عالم دار' -->
+        <text x="50%" y="50%" text-anchor="middle" font-family="Reem Kufi, serif" font-size="30" fill="url(#text-gradient)" font-weight="lighter" dy="0.4em" letter-spacing="-1">
+          <tspan x="72%" dy="0.2em">عالم</tspan>
+          <tspan x="28%" dy="0">دار</tspan> <!-- Adjusted to align horizontally -->
+        </text>
+
+        <!-- Gradient Definition for Arabic Text -->
+        <defs>
+          <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <!-- Darker Green to Light Green Gradient -->
+            <stop offset="0%" style="stop-color:#1B3A26; stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#4CAF50; stop-opacity:1" />
+          </linearGradient>
+
+          <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4CAF50; stop-opacity:1" /> <!-- Light Green -->
+            <stop offset="100%" style="stop-color:#FFFFFF; stop-opacity:1" /> <!-- White -->
+          </linearGradient>
+
+        </defs>
+      </svg>
+    </div>
+    <h1 class="text-4xl font-bold leading-tight mb-2">Welcome to Aalimdar</h1> <!-- Reduced margin-bottom -->
+    <p class="text-lg mb-6">A platform dedicated to learning, sharing knowledge, and exploring the wisdom of renowned Aalims and scholars.</p>
+    <a href="{% url 'about_us' %}" class="bg-green-600 text-white px-6 py-2 rounded-full text-xl hover:bg-green-500 transition-colors duration-300">Learn More</a>
+  </div>
+</section>
+
+<!-- Featured Works Section (Aalims/Books/Poetry) -->
+<section style='padding-top:  48px;' class="px-6">
+  <div class="container mx-auto text-center">
+    <h2 class="text-3xl font-semibold text-green-900 mb-8">Featured Works</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Featured Aalims -->
+      <div class="col-span-1">
+        <h3 class="text-xl font-semibold text-green-900 mb-4">Featured Aalims</h3>
+        {% if aalim %}
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-4 flex flex-col justify-center items-center"
+              style="transition: transform 0.3s ease-in-out;" 
+              onmouseover="this.style.transform='scale(0.95)'" 
+              onmouseout="this.style.transform='scale(1)'"
+        >
+          <img src="{{ aalim.photo.url }}" alt="{{ aalim.name }}" class="w-48 h-48">
+          <div class="p-6">
+            <h4 class="text-lg font-semibold text-green-900">{{ aalim.name }}</h4>
+            <p class="text-gray-600 mt-2">{{ aalim.bio|truncatewords:15 }}</p>
+            <a href="{% url 'aalim_detail' aalim.id %}" class="text-green-600 hover:text-green-500 transition-colors duration-300 mt-4 inline-block">Read More</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Featured Books -->
+      <div class="col-span-1">
+        <h3 class="text-xl font-semibold text-green-900 mb-4">Featured Books</h3>
+        {% if book %}
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-4 flex flex-col justify-center items-center"
+              style="transition: transform 0.3s ease-in-out;" 
+              onmouseover="this.style.transform='scale(0.95)'" 
+              onmouseout="this.style.transform='scale(1)'"
+        >
+          <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-48 h-48">
+          <div class="p-6">
+            <h4 class="text-lg font-semibold text-green-900">{{ book.title }}</h4>
+            <a href="{% url 'book_detail' book.id %}" class="text-green-600 hover:text-green-500 transition-colors duration-300 mt-4 inline-block">Read More</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      <!-- Featured Poetry -->
+      <div class="col-span-1">
+        <h3 class="text-xl font-semibold text-green-900 mb-4">Featured Poetry</h3>
+        {% if poetry %}
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden mb-4 flex flex-col justify-center items-center"
+              style="transition: transform 0.3s ease-in-out;" 
+              onmouseover="this.style.transform='scale(0.95)'" 
+              onmouseout="this.style.transform='scale(1)'"
+          >
+          <div class="relative">
+            <!-- Dummy Image for Poetry -->
+            <div class='flex justify-center'>
+              <img src="https://imgs.search.brave.com/homeTbeZl4OOsu3kDF9rfTfKfbhVpNSfg0E9qzvxLOQ/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzQ4L2M4/L2I2LzQ4YzhiNjkz/NmJmZWZiODVjNmIx/NDgxZWYyYmJlZDMy/LmpwZw" alt="Poetry Image" class="w-48 h-48">
+            </div>
+            <div class="p-6">
+              <h4 class="text-lg font-semibold text-green-900">{{ poetry.title }}</h4>
+              <p class="text-gray-600 mt-2">{{ poetry.content|truncatewords:15 }}</p>
+              <a href="{% url 'poetry_detail' pk=poetry.pk %}" class="text-green-600 hover:text-green-500 transition-colors duration-300 mt-4 inline-block">Read More</a>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Links to Aalim, Book, and Poetry Lists with Icons -->
+<section class="py-12 px-6 bg-gray-100">
+  <div class="container mx-auto text-center">
+    <h2 class="text-2xl font-semibold text-green-900 mb-6">Explore More</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Aalim List Link Box -->
+      <div class="bg-white p-8 shadow-lg rounded-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow duration-300"
+        style="transition: transform 0.3s ease-in-out;" 
+        onmouseover="this.style.transform='scale(0.95)'" 
+        onmouseout="this.style.transform='scale(1)'"
+      >
+        <i class="fas fa-user-tie text-4xl text-green-600 mb-4"></i>
+        <h3 class="text-xl font-semibold text-green-900 mb-4">Aalim List</h3>
+        <a href="{% url 'aalim_list' %}" class="text-green-600 hover:text-green-500 transition-colors duration-300">View All Aalims</a>
+      </div>
+
+      <!-- Book List Link Box -->
+      <div class="bg-white p-8 shadow-lg rounded-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow duration-300"
+        style="transition: transform 0.3s ease-in-out;" 
+        onmouseover="this.style.transform='scale(0.95)'" 
+        onmouseout="this.style.transform='scale(1)'"
+      >
+        <i class="fas fa-book text-4xl text-green-600 mb-4"></i>
+        <h3 class="text-xl font-semibold text-green-900 mb-4">Book List</h3>
+        <a href="{% url 'book_list' %}" class="text-green-600 hover:text-green-500 transition-colors duration-300">View All Books</a>
+      </div>
+
+      <!-- Poetry List Link Box -->
+      <div class="bg-white p-8 shadow-lg rounded-lg flex flex-col items-center justify-center hover:shadow-xl transition-shadow duration-300"
+        style="transition: transform 0.3s ease-in-out;" 
+        onmouseover="this.style.transform='scale(0.95)'" 
+        onmouseout="this.style.transform='scale(1)'"
+      >
+        <i class="fas fa-feather-alt text-4xl text-green-600 mb-4"></i>
+        <h3 class="text-xl font-semibold text-green-900 mb-4">Poetry List</h3>
+        <a href="{% url 'poetry_list' %}" class="text-green-600 hover:text-green-500 transition-colors duration-300">View All Poetry</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

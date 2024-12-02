@@ -1,0 +1,25 @@
+{% load static tailwind_tags %} {% load static %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aalimdar</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Laila:wght@400&family=Lato:wght@300&family=Merriweather:wght@300&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi&display=swap" rel="stylesheet">
+    {% tailwind_css %}
+    <style>
+        body {
+            font-family:'Cairo', sans-serif;
+        }
+    </style>
+</head>
+<body >
+    {% include "navbar.html" %}
+    {% block content %}{% endblock %}
+    {% include "footer.html" %}
+</body>
+</html>

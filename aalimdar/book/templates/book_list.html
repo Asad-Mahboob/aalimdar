@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <section class="py-12 px-6 bg-gray-100">
+    <div class="container mx-auto text-center flex flex-col justify-center items-center">
+      <h1 class="text-3xl font-semibold text-green-900 mb-8">Books</h1>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 items-center justify-center">
+        {% for book in books %}
+          <div class="flex flex-col justify-center items-center sm:w-64 md:w-fit p-2 shadow-xl rounded-lg relative overflow-hidden"
+               style="transition: transform 0.3s ease-in-out;" 
+               onmouseover="this.style.transform='scale(0.95)'" 
+               onmouseout="this.style.transform='scale(1)'">
+            <img src="{{ book.cover_image.url }}" alt="{{ book.title }}" class="w-48 h-48 object-contain mb-4">
+            <div class="p-2 w-full">
+              <h4 class="text-lg font-semibold text-green-900 text-center">{{ book.title }}</h4>
+              <a href="{% url 'book_detail' book.id %}" class="text-green-600 hover:text-green-500 transition-colors duration-300 mt-2 inline-block text-center">Read More</a> <!-- Centered the link -->
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% load static %}
+<nav class="bg-white shadow-lg p-2 transition-all duration-300 md:pl-28 md:pr-24">
+  <div class="flex items-center justify-between">
+    <!-- Logo -->
+    <a href="{% url 'home' %}" class="text-green-900 font-semibold text-xl hover:text-green-600 transition-colors duration-300">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="50" height="50">
+        <!-- Background Circle without Border -->
+        <circle cx="50" cy="50" r="48" fill="url(#green-gradient)"/>
+
+        <!-- Arabic Text: 'عالم دار' -->
+        <text x="50%" y="50%" text-anchor="middle" font-family="Reem Kufi, serif" font-size="28" fill="url(#text-gradient)" font-weight="lighter" dy="0.4em" letter-spacing="-1">
+          <tspan x="70%" dy="0.2em">عالم</tspan>
+          <tspan x="30%" dy="0">دار</tspan> <!-- Adjusted to align horizontally -->
+        </text>
+
+        <!-- Gradient Definition for Arabic Text -->
+        <defs>
+          <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <!-- Darker Green to Light Green Gradient -->
+            <stop offset="0%" style="stop-color:#1B3A26; stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#4CAF50; stop-opacity:1" />
+          </linearGradient>
+
+          <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4CAF50; stop-opacity:1" /> <!-- Light Green -->
+            <stop offset="100%" style="stop-color:#FFFFFF; stop-opacity:1" /> <!-- White -->
+          </linearGradient>
+
+        </defs>
+      </svg>
+    </a>
+    <!-- Menu Button for Small Screens -->
+    <div class="block md:hidden">
+      <button id="menu-button" class="text-green-900 focus:outline-none hover:text-green-600 transition-colors duration-300">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Navbar Links for Medium and Larger Screens -->
+    <div class="hidden md:flex space-x-10 text-green-900">
+      <a href="{% url 'home' %}" class="hover:text-green-500 transition-colors duration-300 font-semibold">Home</a>
+      <a href="{% url 'aalim_list' %}" class="hover:text-green-500 transition-colors duration-300 font-semibold">Aalim</a>
+      <a href="{% url 'book_list' %}" class="hover:text-green-500 transition-colors duration-300 font-semibold">Book</a>
+      <a href="{% url 'poetry_list' %}" class="hover:text-green-500 transition-colors duration-300 font-semibold">Poetry</a>
+      <a href="{% url 'about_us' %}" class="hover:text-green-500 transition-colors duration-300 font-semibold">About Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Dropdown Menu for Small Screens (Initially Hidden) -->
+<div id="menu" class="hidden md:hidden flex-col items-center space-y-4 bg-white absolute top-16 left-0 right-0 p-4 mt-2 shadow-lg rounded-b-md transition-all duration-300 z-50">
+  <a href="{% url 'home' %}" class="text-green-900 hover:text-green-500 transition-colors duration-300 py-2 font-semibold">Home</a>
+  <a href="{% url 'aalim_list' %}" class="text-green-900 hover:text-green-500 transition-colors duration-300 py-2 font-semibold">Aalim</a>
+  <a href="{% url 'book_list' %}" class="text-green-900 hover:text-green-500 transition-colors duration-300 py-2 font-semibold">Book</a>
+  <a href="{% url 'poetry_list' %}" class="text-green-900 hover:text-green-500 transition-colors duration-300 py-2 font-semibold">Poetry</a>
+  <a href="{% url 'about_us' %}" class="text-green-900 hover:text-green-500 transition-colors duration-300 py-2 font-semibold">About Us</a>
+</div>
+
+<!-- Tailwind CSS and JavaScript for Menu Toggle -->
+<script>
+  const menuButton = document.getElementById('menu-button');
+  const menu = document.getElementById('menu');
+
+  menuButton.addEventListener('click', () => {
+    menu.classList.toggle('hidden');
+     menu.classList.add('flex')
+  });
+
+  // Close the menu if the user clicks outside
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && !menuButton.contains(e.target)) {
+      menu.classList.add('hidden'); // Close the menu when clicking outside
+    }
+  });
+</script>

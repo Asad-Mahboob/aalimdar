@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="py-12 px-6 bg-gray-100">
+    <div class="container mx-auto">
+        <h1 class="text-3xl font-semibold text-green-900 mb-8">Poetry</h1>
+        <div class="overflow-x-auto">
+            <table class="table-auto w-full bg-white shadow-lg rounded-lg">
+                <thead class="bg-green-900 text-white">
+                    <tr>
+                        <th class="px-6 py-3 text-left">Title</th>
+                        <th class="px-6 py-3 text-left">Author</th> <!-- New column for Author -->
+                        <th class="px-6 py-3 text-center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for poem in poetry %}
+                        <tr class="border-t-2 hover:bg-gray-100 py-1">
+                            <!-- Title cell cut off after 10 characters (without wrapping to next line) -->
+                            <td class="px-6 py-4 text-gray-700 text-lg font-semibold sm:w-[10ch] sm:truncate sm:overflow-hidden sm:whitespace-nowrap">{{ poem.title }}</td>
+                            <!-- Author cell cut off after 10 characters (without wrapping to next line) -->
+                            <td class="px-6 py-4 text-gray-700 sm:w-[10ch] sm:truncate sm:overflow-hidden sm:whitespace-nowrap">{{ poem.author }}</td>
+                            <td class="px-6 py-4 text-center">
+                                <a href="{% url 'poetry_detail' pk=poem.pk %}" class="text-green-600 hover:text-green-500" title="View Details">
+                                    <i class="fas fa-eye text-xl"></i> <!-- Eye icon -->
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="3" class="px-6 py-4 text-center text-gray-500">No poetry available.</td> <!-- Updated colspan to 3 -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

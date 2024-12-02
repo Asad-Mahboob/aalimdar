@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="py-12 px-6 bg-gray-100">
+    <!-- Back Button Positioned at Top Left -->
+    <a href="javascript:window.history.back()"
+   class="absolute top-20 left-6 text-green-600 hover:text-green-500 font-semibold text-lg flex items-center">
+    &larr; Back
+    </a>
+
+    <div class="flex items-center justify-center ">
+        <div class="w-full max-w-3xl bg-white shadow-lg rounded-lg p-8">
+            <!-- Poetry Title -->
+            <h3 class="text-3xl font-semibold text-green-900 text-center mb-6">{{ poetry.title }}</h3>
+
+            <!-- Poetry Content (Centered) -->
+            <pre class="mt-4 text-lg text-gray-800 whitespace-pre-wrap break-words text-center" 
+                style="font-family: 'Laila', serif; padding-left: 0; margin-left: 0;">{{ poetry.lines }}
+            </pre>
+
+
+            <!-- Author Information (Image and Name) -->
+            <div style='padding-top:24px' class="flex items-center justify-center">
+                <!-- Author's Image (Left Side) -->
+                <div style='padding-right:18px' class="flex justify-center items-center w-20 h-20 rounded-full overflow-hidden">
+                    {% if poetry.author.photo %}
+                        <img src="{{ poetry.author.photo.url }}" alt="{{ poetry.author.name }}'s Photo" class="w-full">
+                    {% else %}
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <span class="text-gray-500 text-sm">No Photo</span>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Author's Name and 'Written by' Text (Right Side) -->
+                <div>
+                    <p class="text-green-600 text-lg">Written by</p>
+                    <a href="{% url 'aalim_detail' poetry.author.id %}" class="text-green-900 text-xl font-semibold hover:text-green-500">
+                        {{ poetry.author.name }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

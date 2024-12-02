@@ -1,0 +1,171 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class='w-full flex justify-center items-center'>
+<div class="container my-6 px-4">
+    <!-- Back Button -->
+    <div>
+        <a href="javascript:window.history.back()"
+        class="absolute top-20 left-6 text-green-600 hover:text-green-500 font-semibold text-lg flex items-center">
+            &larr; Back
+        </a>
+    </div>
+
+    <!-- Aalim Details -->
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden mx-auto max-w-4xl">
+        <div class="p-8">
+            <!-- Aalim Photo -->
+            <div class="text-center mb-6">
+                {% if aalim.photo %}
+                    <img src="{{ aalim.photo.url }}" alt="{{ aalim.name }}'s Photo" class="w-40 h-40 rounded-full mx-auto object-cover">
+                {% else %}
+                    <div class="w-40 h-40 rounded-full mx-auto bg-gray-200 flex items-center justify-center">
+                        <span class="text-gray-500 text-sm">No Photo</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Aalim Name -->
+            <h1 class="text-3xl font-bold text-green-900 text-center mb-4">{{ aalim.name }}</h1>
+
+            <!-- Date of Birth and Date of Death -->
+            <div class="text-gray-700 mb-4 gap-4">
+                {% if aalim.dob %}
+                <p><strong>Date of Birth:</strong> {{ aalim.dob }}</p>
+                {% endif %}
+                {% if aalim.dod %}
+                <p><strong>Date of Death:</strong> {{ aalim.dod }}</p>
+                {% endif %}
+            </div>
+
+            <!-- Biography Section -->
+            {% if aalim.biography %}
+            <div class="text-gray-700 mb-4">
+                <h2 class="text-xl font-semibold text-green-900 mb-2">Biography</h2>
+                <p class="text-lg">{{ aalim.biography }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Education Section -->
+            {% if aalim.education %}
+            <div class="text-gray-700 mb-4">
+                <h2 class="text-xl font-semibold text-green-900 mb-2">Education</h2>
+                <p class="text-lg">{{ aalim.education }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Notable Works Section -->
+            {% if aalim.notable_contributions %}
+            <div class="text-gray-700 mb-4">
+                <h2 class="text-xl font-semibold text-green-900 mb-2">Notable Works</h2>
+                <p>{{aalim.notable_contributions}}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Books and Poetry Section (in the same row) -->
+    <div class="my-8 max-w-4xl mx-auto">
+        <!-- Large screen layout (Books and Poetry side by side) -->
+        <div class="flex justify-between items-start lg:flex-row sm:flex-col">
+            <!-- Books Section -->
+            <div style='padding-left:30px' class="hidden md:inline w-full lg:w-1/2 pr-4 mb-4 lg:mb-0">
+                <h2 class="text-xl font-semibold text-green-900 mb-4">Books</h2>
+                {% if books %}
+                    <ul class="list-inside text-gray-700">
+                        {% for book in books %}
+                        <li>
+                            <a href="{% url 'book_detail' book.id %}" class="text-green-600 hover:text-green-500">
+                                {{ book.title }}
+                            </a> - {{ book.genre }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-gray-500">No books available for this Aalim.</p>
+                {% endif %}
+            </div>
+
+            <!-- Poetry Section -->
+            <div style='padding-left:30px' class="hidden md:inline w-full lg:w-1/2 pl-4">
+                <h2 class="text-xl font-semibold text-green-900 mb-4">Poetry</h2>
+                {% if poetry %}
+                    <ul class="list-inside text-gray-700">
+                        {% for poem in poetry %}
+                        <li>
+                            <a href="{% url 'poetry_detail' poem.id %}" class="text-green-600 hover:text-green-500">
+                                {{ poem.title }}
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-gray-500">No poetry available for this Aalim.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Accordion for small screens -->
+        <div style='padding-left:30px' class="md:hidden">
+            <!-- Books Accordion -->
+            <div class="space-y-4">
+                <div class="border-b border-gray-300">
+                    <button class="w-full text-left py-3 text-xl font-semibold text-green-900" id="booksAccordionBtn" onclick="toggleAccordion('booksAccordion')">
+                        Books
+                    </button>
+                    <div id="booksAccordion" class="hidden pl-4 pb-3">
+                        {% if books %}
+                            <ul class="list-inside text-gray-700">
+                                {% for book in books %}
+                                <li>
+                                    <a href="{% url 'book_detail' book.id %}" class="text-green-600 hover:text-green-500">
+                                        {{ book.title }}
+                                    </a> - {{ book.genre }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-gray-500">No books available for this Aalim.</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Poetry Accordion -->
+                <div class="border-b border-gray-300">
+                    <button class="w-full text-left py-3 text-xl font-semibold text-green-900" id="poetryAccordionBtn" onclick="toggleAccordion('poetryAccordion')">
+                        Poetry
+                    </button>
+                    <div id="poetryAccordion" class="hidden pl-4 pb-3">
+                        {% if poetry %}
+                            <ul class="list-inside text-gray-700">
+                                {% for poem in poetry %}
+                                <li>
+                                    <a href="{% url 'poetry_detail' poem.id %}" class="text-green-600 hover:text-green-500">
+                                        {{ poem.title }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="text-gray-500">No poetry available for this Aalim.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    // Simple JavaScript function to toggle accordion content
+    function toggleAccordion(id) {
+        var element = document.getElementById(id);
+        if (element.classList.contains('hidden')) {
+            element.classList.remove('hidden');
+        } else {
+            element.classList.add('hidden');
+        }
+    }
+</script>
+{% endblock %}
