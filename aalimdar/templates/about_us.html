@@ -4,6 +4,33 @@
 <!-- Hero Section -->
 <section class="relative bg-green-900 text-white py-20 px-6">
   <div class="container mx-auto text-center">
+    <div class="flex justify-center items-center pb-2 mb-2"> <!-- Reduced padding and margin -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="125" height="125">
+        <!-- Background Circle without Border -->
+        <circle cx="50" cy="50" r="48" fill="url(#green-gradient)"/>
+
+        <!-- Arabic Text: 'عالم دار' -->
+        <text x="50%" y="50%" text-anchor="middle" font-family="Reem Kufi, serif" font-size="30" fill="url(#text-gradient)" font-weight="lighter" dy="0.4em" letter-spacing="-1">
+          <tspan x="72%" dy="0.2em">عالم</tspan>
+          <tspan x="28%" dy="0">دار</tspan> <!-- Adjusted to align horizontally -->
+        </text>
+
+        <!-- Gradient Definition for Arabic Text -->
+        <defs>
+          <linearGradient id="green-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <!-- Darker Green to Light Green Gradient -->
+            <stop offset="0%" style="stop-color:#1B3A26; stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#4CAF50; stop-opacity:1" />
+          </linearGradient>
+
+          <linearGradient id="text-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#4CAF50; stop-opacity:1" /> <!-- Light Green -->
+            <stop offset="100%" style="stop-color:#FFFFFF; stop-opacity:1" /> <!-- White -->
+          </linearGradient>
+
+        </defs>
+      </svg>
+    </div>
     <h1 class="text-4xl font-bold leading-tight mb-4">About Aalimdar</h1>
     <p class="text-lg mb-6">Our mission is to bring the wisdom of renowned Aalims and scholars to knowledge seekers.</p>
   </div>
